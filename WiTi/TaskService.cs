@@ -13,11 +13,13 @@ namespace WiTi
 
             for (int i = 1; i < lines.Length; ++i)
             {
+                if (lines[i] == "" || lines[i] == null)
+                    continue;
                 Task currentTask = new Task();
                 string[] line = lines[i].Split(' ');
-                currentTask.t = int.Parse(line[0]);
-                currentTask.p = int.Parse(line[1]);
-                currentTask.f = int.Parse(line[2]);
+                currentTask.p = int.Parse(line[0]);
+                currentTask.w = int.Parse(line[1]);
+                currentTask.d = int.Parse(line[2]);
                 data[i] = currentTask;
             }
             return data;
