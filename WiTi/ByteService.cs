@@ -7,20 +7,44 @@ namespace WiTi
     {
         const string formatter = "{0,16}{1,20}";
 
-        public byte[] IntToByte(int value)
+        public byte[] IntToByte(int value, int byteLenghth)
         {
-            byte[] hexArray = BitConverter.GetBytes(value);
-            byte[] binaryArray = HexArrayToBinaryByteArray(hexArray);
+            string binary = Convert.ToString(value, 2);
+            byte[] binaryArray = new byte[byteLenghth];
+            for (int i = 0; i < binary.Length; ++i)
+                binaryArray[i] = byte.Parse((binary[binary.Length-1-i].ToString()));
+
+            foreach (var b in binaryArray)
+                Console.Write(b.ToString());
+            Console.WriteLine("");
+
             return binaryArray;
         }
 
         public int ByteToInt(byte[] byteArray)
-        {//////////////////////
-            ////////////////////
-            // TO DO 
-            /////////////
-            //foreach (var p in bytes)
-            //    Console.WriteLine(p);
+        {
+            int length = byteArray.Length;
+            string binaryStr = "";
+            if (byteArray.Length % 8 != 0)
+                length += 8 - byteArray.Length % 8;
+
+            for (int i = 0; i < length; ++i)
+            {
+                if (i < byteArray.Length)
+                    binaryStr += byteArray[i];
+                else
+                    binaryStr += 0;
+            }
+            string tmp = "";
+            for(int i = length-1; i >= 0; --i)
+            {
+                tmp += binaryStr[i];
+            }
+            binaryStr = tmp;
+
+
+            int o = Convert.ToInt32(binaryStr, 2);
+            Console.WriteLine(o);
             return 0;
         }
 
@@ -32,20 +56,6 @@ namespace WiTi
                     ++count;
             return count;
         }
-
-        byte[] HexArrayToBinaryByteArray(byte[] hexArray)
-        {
-            string bitstring = "";
-            foreach (byte b in hexArray)
-                bitstring += Convert.ToString(b, 2);
-            byte[] binary = new byte[bitstring.Length];
-            for (int i = 0; i < bitstring.Length; ++i)
-                binary[i] = byte.Parse(bitstring[i].ToString());
-
-            return binary;
-        }
-
-        
     }
 
 }
