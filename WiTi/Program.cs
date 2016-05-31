@@ -8,13 +8,17 @@ namespace WiTi
         static void Main(string[] args)
         {
             TaskService TS = new TaskService();
+            ByteService BS = new ByteService();
             while(true)
             {
 
                 Console.WriteLine("podaj nazwę pliku");
-                string fileName = Console.ReadLine();
-                Task[] tasksList = TS.ReadData(fileName);
-                WiTiAlg(tasksList);
+                //string fileName = Console.ReadLine();
+                //Task[] tasksList = TS.ReadData(fileName);
+                //WiTiAlg(tasksList);
+                int k = int.Parse(Console.ReadLine());
+                BS.IntToByte(k, 2);
+                
 
             }
 
