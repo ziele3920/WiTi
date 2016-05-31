@@ -49,24 +49,36 @@ namespace WiTi
                 if (indexes[0, 0] == 0) {
                     Task currentTask = tasksList[indexes[0, 1]];
                     currentTime += currentTask.p;
-                    punishmentCost[i] = Math.Max(0, (currentTime - currentTask.d) * currentTask.w);
+                    punishmentCost[i] = Math.Max(0, (currentTask.p - currentTask.d) * currentTask.w);
                     continue;
                 }
-                for(int j = 0; j < indexes.GetLength(0); ++j)
-                {
-                    int newPunishment = punishmentCost[indexes[j, 1]] + punishmentCost[indexes[j, 0]];
-                    if (newPunishment < punishmentCost[i])
-                        punishmentCost[i] = newPunishment;
-                }
+                punishmentCost[i] = GetMinPunishment(i, byteCount, tasksList, punishmentCost);
             }
             
             return punishmentCost[steps-1];
         }
 
-        static int GetMinPunishmentFor(int taskNumber)
+        static int GetMinPunishment(int value, int byteLength, Task[] tasks, int[] punishCost)
         {
-
-        }
+            ByteService BS = new ByteService();
+            byte[] by = BS.IntToByte(value, byteLength);
+            int[] indexes = BS.GetOnesIndexes(by);
+            int sumTime = 0;
+            foreach (int i in indexes)
+                sumTime += tasks[i].p;
+            int punishment = int.MaxValue;
+            for(int i = 0; i < indexes.Length; ++i)
+            {
+                int newPunishment = Math.Max(0, (sumTime - tasks[indexes[i]].d) * tasks[indexes[i]].w);
+                by[indexes[i]-1] = 0;
+                int additionalPunishment = punishCost[BS.ByteToInt(by)];
+                by[indexes[i]-1] = 1;
+                newPunishment += additionalPunishment;
+                if (newPunishment < punishment)
+                    punishment = newPunishment;
+            }
+            return punishment;
+        } 
 
         public static int TwoPowX(int power)
         {

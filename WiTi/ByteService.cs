@@ -67,6 +67,15 @@ namespace WiTi
             }
             return indexes;
         }
+
+        public int[] GetOnesIndexes(byte[] byteArr)
+        {
+            List<int> onesIndex = new List<int>();
+            for (int i = 0; i < byteArr.Length; ++i)
+                if (byteArr[i] == 1)
+                    onesIndex.Add(i+1);
+            return onesIndex.ToArray();
+        }
     }
 
 }
