@@ -17,10 +17,15 @@ namespace WiTi
                 //Task[] tasksList = TS.ReadData(fileName);
                 //WiTiAlg(tasksList);
                 int k = int.Parse(Console.ReadLine());
-                byte[] b = BS.IntToByte(k, 8);
-
-                Console.WriteLine(BS.ByteToInt(b));
-                
+                //[] b = BS.IntToByte(k, 8);
+                //Console.WriteLine(BS.ByteToInt(b));
+                var l = BS.GetPermutationsIndex(k, 4);
+                for (int i = 0; i < l.Length/2; ++i)
+                {
+                    for (int j = 0; j < 2; ++j)
+                        Console.Write(l[i,j] + " ");
+                    Console.WriteLine(" ");
+                }
 
             }
 
