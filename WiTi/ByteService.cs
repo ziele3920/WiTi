@@ -40,6 +40,8 @@ namespace WiTi
         public int[,] GetPermutationsIndex(int value, int byteLength)
         {
             byte[] byteArr = IntToByte(value, byteLength);
+            if (GetCountOfSetBytes(byteArr) == 1)
+                return null;
             List<int> onesIndex = new List<int>();
             byte[] workingArr = new byte[byteArr.Length];
             for (int i = 0; i < byteArr.Length; ++i)

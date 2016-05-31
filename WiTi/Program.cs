@@ -33,9 +33,31 @@ namespace WiTi
 
         private static void WiTiAlg(Task[] tasksList)
         {
-            int dataCount = tasksList.Length - 1;
-            byte[] currentTasksSet = new byte[dataCount];
-            int[] punishmentCost = new int[TwoPowX(dataCount)];
+            ByteService BS = new ByteService();
+            int byteCount = tasksList.Length - 1;
+            int steps = TwoPowX(byteCount);
+            byte[] currentTasksSet = new byte[byteCount];
+            int[] punishmentCost = new int[steps];
+            for (int i = 0; i < steps; ++i)
+                punishmentCost[i] = int.MaxValue;
+            int currentTime = 0;
+
+            for(int i = 1; i < steps; ++i)
+            {
+                Task currentTask = tasksList[i - 1];
+                int[,] indexes = BS.GetPermutationsIndex(i, byteCount);
+                if (indexes == null) {
+                    currentTime += currentTask.p;
+                    punishmentCost[i] = Math.Max(0, (currentTime - currentTask.d) * currentTask.w);
+                    continue;
+                }
+                for(int j = 0; j < indexes.GetLength(0); ++j)
+                {
+                    int newPunishment = punishmentCost[indexes[j, 1] + punishmentCost[indexes[j, 0]]];
+                    if (newPunishment < punishmentCost[i])
+                        punishmentCost[i] = newPunishment;
+                }
+            }
 
         }
 
