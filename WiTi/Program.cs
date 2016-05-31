@@ -17,7 +17,8 @@ namespace WiTi
                 //Task[] tasksList = TS.ReadData(fileName);
                 //WiTiAlg(tasksList);
                 int k = int.Parse(Console.ReadLine());
-                BS.IntToByte(k, 2);
+                byte[] b = BS.IntToByte(k);
+                BS.ByteToInt(b);
                 
 
             }

@@ -7,11 +7,30 @@ namespace WiTi
     {
         const string formatter = "{0,16}{1,20}";
 
-        public byte[] IntToByte(int value, int tableLength)
+        public byte[] IntToByte(int value)
         {
             byte[] hexArray = BitConverter.GetBytes(value);
             byte[] binaryArray = HexArrayToBinaryByteArray(hexArray);
             return binaryArray;
+        }
+
+        public int ByteToInt(byte[] byteArray)
+        {//////////////////////
+            ////////////////////
+            // TO DO 
+            /////////////
+            //foreach (var p in bytes)
+            //    Console.WriteLine(p);
+            return 0;
+        }
+
+        public int GetCountOfSetBytes(byte[] array)
+        {
+            int count = 0;
+            foreach (var byt in array)
+                if (byt == 1)
+                    ++count;
+            return count;
         }
 
         byte[] HexArrayToBinaryByteArray(byte[] hexArray)
@@ -25,6 +44,8 @@ namespace WiTi
 
             return binary;
         }
+
+        
     }
 
 }
