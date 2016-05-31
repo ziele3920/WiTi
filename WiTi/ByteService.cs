@@ -14,38 +14,17 @@ namespace WiTi
             for (int i = 0; i < binary.Length; ++i)
                 binaryArray[i] = byte.Parse((binary[binary.Length-1-i].ToString()));
 
-            foreach (var b in binaryArray)
-                Console.Write(b.ToString());
-            Console.WriteLine("");
-
             return binaryArray;
         }
 
         public int ByteToInt(byte[] byteArray)
         {
-            int length = byteArray.Length;
             string binaryStr = "";
-            if (byteArray.Length % 8 != 0)
-                length += 8 - byteArray.Length % 8;
-
-            for (int i = 0; i < length; ++i)
-            {
-                if (i < byteArray.Length)
-                    binaryStr += byteArray[i];
-                else
-                    binaryStr += 0;
-            }
-            string tmp = "";
-            for(int i = length-1; i >= 0; --i)
-            {
-                tmp += binaryStr[i];
-            }
-            binaryStr = tmp;
-
+            for (int i = 0; i < byteArray.Length; ++i)
+                binaryStr = binaryStr.Insert(0, byteArray[i].ToString());
 
             int o = Convert.ToInt32(binaryStr, 2);
-            Console.WriteLine(o);
-            return 0;
+            return o;
         }
 
         public int GetCountOfSetBytes(byte[] array)

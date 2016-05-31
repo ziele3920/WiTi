@@ -18,7 +18,8 @@ namespace WiTi
                 //WiTiAlg(tasksList);
                 int k = int.Parse(Console.ReadLine());
                 byte[] b = BS.IntToByte(k, 8);
-                //BS.ByteToInt(b);
+
+                Console.WriteLine(BS.ByteToInt(b));
                 
 
             }
