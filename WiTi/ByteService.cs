@@ -40,8 +40,7 @@ namespace WiTi
         public int[,] GetPermutationsIndex(int value, int byteLength)
         {
             byte[] byteArr = IntToByte(value, byteLength);
-            if (GetCountOfSetBytes(byteArr) == 1)
-                return null;
+            
             List<int> onesIndex = new List<int>();
             byte[] workingArr = new byte[byteArr.Length];
             for (int i = 0; i < byteArr.Length; ++i)
@@ -51,7 +50,14 @@ namespace WiTi
                 workingArr[i] = byteArr[i];
             }
             int[,] indexes = new int[onesIndex.Count, 2];
-            for(int i = 0; i < onesIndex.Count; ++i)
+            if (indexes.GetLength(0) == 1)
+            {
+                indexes[0, 0] = 0;
+                indexes[0, 1] = onesIndex[0] + 1;
+                return indexes;
+            }
+
+                for (int i = 0; i < onesIndex.Count; ++i)
             {
                 indexes[i, 1] = Program.TwoPowX(onesIndex[i]);
                 if (i > 0)
